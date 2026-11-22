@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Logic Lab — Gate Experiment Workspace</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <div class="brand-text">
+          <h1>Logic Lab</h1>
+          <p>Experiment with gates. Wire. Toggle. Watch signals flow.</p>
+        </div>
+      </div>
+      <div class="toolbar">
+        <button type="button" class="tool-btn" id="btn-select" title="Select / Move (V)" data-tool="select" aria-pressed="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l7 16 2-6 6-2L4 4z"/></svg>
+          Select
+        </button>
+        <button type="button" class="tool-btn" id="btn-cut" title="Cut links (X) — drag across wires" data-tool="cut" aria-pressed="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20L20 4M8.5 8.5l7 7M6 4l2 2M16 18l2 2"/></svg>
+          Cut
+        </button>
+        <button type="button" class="tool-btn danger" id="btn-delete" title="Delete selected (Del)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 7h12M9 7V5h6v2m-7 0l1 12h6l1-12"/></svg>
+          Delete
+        </button>
+        <button type="button" class="tool-btn" id="btn-clear" title="Clear canvas">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M9 7v12m6-12v12M10 4h4"/></svg>
+          Clear
+        </button>
+        <div class="toolbar-sep"></div>
+        <label class="sim-toggle" title="Auto-evaluate circuit">
+          <input type="checkbox" id="sim-live" checked />
+          <span>Live sim</span>
+        </label>
+      </div>
+      <div class="status-pill" id="status-pill">
+        <span class="status-dot"></span>
+        <span id="status-text">Ready — drag a gate onto the board</span>
+      </div>
+    </header>
+
+    <aside class="palette" aria-label="Component palette">
+      <h2>Components</h2>
+      <p class="palette-hint">Drag onto the board</p>
+
+      <section class="palette-section">
+        <h3>I / O</h3>
+        <div class="palette-grid" id="palette-io"></div>
+      </section>
+      <section class="palette-section">
+        <h3>Gates</h3>
+        <div class="palette-grid" id="palette-gates"></div>
+      </section>
+
+      <section class="help-card">
+        <h3>How to use</h3>
+        <ol>
+          <li>Drag from a port to another to link</li>
+          <li>Drag an existing input link to move or drop it</li>
+          <li>Cut tool or <kbd>Ctrl</kbd>+drag across wires to slice</li>
+          <li>Drop a gate on a wire to insert it</li>
+          <li>Click switches to toggle 0 / 1</li>
+        </ol>
+      </section>
+    </aside>
+
+    <main class="workspace" id="workspace">
+      <div class="board-wrap" id="board-wrap">
+        <svg class="wires" id="wires" xmlns="http://www.w3.org/2000/svg"></svg>
+        <div class="board" id="board"></div>
+        <svg class="wire-preview" id="wire-preview" xmlns="http://www.w3.org/2000/svg"></svg>
+      </div>
+      <div class="empty-hint" id="empty-hint">
+        <div class="empty-hint-inner">
+          <span class="empty-glyph" aria-hidden="true"></span>
+          <strong>Your bench is empty</strong>
+          <span>Drag an INPUT or AND gate from the left to start experimenting.</span>
+        </div>
+      </div>
+    </main>
+
+    <aside class="inspector" aria-label="Inspector">
+      <h2>Probe</h2>
+      <div class="probe-panel" id="probe-panel">
+        <p class="probe-idle">Select a component to inspect its ports and truth.</p>
+      </div>
+      <div class="truth-panel" id="truth-panel" hidden>
+        <h3>Truth table</h3>
+        <div class="truth-table" id="truth-table"></div>
+      </div>
+      <div class="legend">
+        <h3>Signal legend</h3>
+        <div class="legend-row"><span class="sig high"></span> High (1)</div>
+        <div class="legend-row"><span class="sig low"></span> Low (0)</div>
+        <div class="legend-row"><span class="sig float"></span> Unconnected</div>
+      </div>
+    </aside>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
